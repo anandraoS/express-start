@@ -1,12 +1,11 @@
 const express = require('express');
 const app = express();
+const log = require('./logger');
 app.use(express.json());
 
 const Joi = require('joi');
 
-app.get('/',(req,res)=>{
-res.send('hello world!!! ');
-});
+
 
 const courses = [
 {id:1, name: 'cource1'},
@@ -14,6 +13,13 @@ const courses = [
 {id:3, name: 'cource3'},
 {id:4, name: 'cource4'}
 ];
+
+app.use(log);
+app.get('/',(req,res)=>{
+    res.send('hello world!!! ');
+    });
+
+
 app.get('/api/courses', (req,res)=>{
 
     res.send(courses);
