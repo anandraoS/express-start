@@ -40,8 +40,11 @@ app.use(helmet());
 
 
 app.use(express.static('public'));
+
+app.set('view engine', 'pug');
+app.set('views','./views');
 app.get('/', (req, res) => {
-    res.send('hello world!!! ');
+    res.render ('index',{title: 'myExpressApp', message:'Hellow'});
 });
 
 
