@@ -3,6 +3,7 @@ const app = express();
 const log = require('./logger');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const config = require('config');
 app.use(express.json());
 
 const Joi = require('joi');
@@ -17,14 +18,20 @@ const courses = [
 ];
 
 
-
 console.log(`NODE_ENV : ${process.env.NODE_ENV}`);
 console.log(`app ; ${app.get('env')}`);
+if (app.get('env') === 'development') {
 
+    app.use(morgan('tiny'));
+    console.log('we are using morgan');
+}
+
+console.log('Application name : ' + config.get('name'));
+console.log('Mail Server name : ' + config.get('mail.host'));
+console.log('Mail Password: ' + config.get('mail.password'));
 app.use(log);
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(morgan('tiny'));
 
 
 app.use(express.static('public'));
