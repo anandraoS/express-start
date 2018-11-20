@@ -4,6 +4,9 @@ const log = require('./logger');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const config = require('config');
+const startupDebugger = require('debug')('app:startup');
+const dbDebugger = require('debug')('app:db');
+
 app.use(express.json());
 
 const Joi = require('joi');
@@ -25,6 +28,8 @@ if (app.get('env') === 'development') {
     app.use(morgan('tiny'));
     console.log('we are using morgan');
 }
+startupDebugger('we are in startup debugger');
+dbDebugger('we are in db debugger');
 
 console.log('Application name : ' + config.get('name'));
 console.log('Mail Server name : ' + config.get('mail.host'));
